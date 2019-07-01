@@ -118,12 +118,6 @@ class Wp_Job_Scraper
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-wp-job-scraper-admin.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-wp-job-scraper-public.php';
-
 
 
 

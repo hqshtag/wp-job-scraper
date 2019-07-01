@@ -54,31 +54,29 @@ class Wp_Job_Scraper_Admin
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
-		add_action('admin_menu', array($this, 'register_wp_job_scraper_admin_menu'));
+		add_action('admin_menu', array($this, 'add_admin_pages'));
 	}
 
 
-	public function register_wp_job_scraper_admin_menu()
+	public function add_admin_pages()
 	{
 		add_menu_page(
-			'Job scraper',
-			'Job scraper',
-			'manage-options',
+			'WP Job Scraper',
+			'Job Scraper',
+			'manage_options',
 			'wp-job-scraper',
-			array($this, 'render_wp_job_scraper_admin_menu'),
-			'dashicons-portfolio'
+			array($this, 'admin_dashboard'),
+			'dashicons-portfolio',
+			null
 		);
 	}
 
+	public function register_wp_job_scraper_admin_menu()
+	{ }
+
 
 	public function render_wp_job_scraper_admin_menu()
-	{
-		ob_start();
-		include(WP_JOB_SCRAPER_PATH . 'admin/partials/wp-job-scraper-admin-display.php');
-		$content = ob_get_contents();
-		ob_get_clean();
-		echo $content;
-	}
+	{ }
 
 	/**
 	 * Register the stylesheets for the admin area.
