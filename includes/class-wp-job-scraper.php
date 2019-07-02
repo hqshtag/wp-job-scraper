@@ -58,6 +58,16 @@ class Wp_Job_Scraper
 	 */
 	protected $version;
 
+
+	/**
+	 * Wraper over The Settings API.
+	 *
+	 * @since     0.2.0
+	 * @access   public
+	 * @var      Settings_Api    $settings   
+	 */
+	public $settings;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -72,14 +82,15 @@ class Wp_Job_Scraper
 		if (defined('WP_JOB_SCRAPER_VERSION')) {
 			$this->version = WP_JOB_SCRAPER_VERSION;
 		} else {
-			$this->version = '1.1.0';
+			$this->version = '0.2.0';
 		}
 		$this->plugin_name = 'wp-job-scraper';
+
+
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		//$this->define_public_hooks();
 	}
 
 	/**
@@ -90,7 +101,6 @@ class Wp_Job_Scraper
 	 * - Wp_Job_Scraper_Loader. Orchestrates the hooks of the plugin.
 	 * - Wp_Job_Scraper_i18n. Defines internationalization functionality.
 	 * - Wp_Job_Scraper_Admin. Defines all hooks for the admin area.
-	 * - Wp_Job_Scraper_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -119,8 +129,14 @@ class Wp_Job_Scraper
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-wp-job-scraper-admin.php';
 
 
+		/**
+		 * a wraper over the Settings API
+		 */
+
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-settings-api.php';
 
 
+		$this->settings = new Settings_Api();
 		$this->loader = new Wp_Job_Scraper_Loader();
 	}
 
@@ -155,7 +171,26 @@ class Wp_Job_Scraper
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		$this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_pages');
+		//$this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_pages');
+
+		$pages = [
+			[
+				'page_title' => 'WP Job Scraper',
+				'menu_title' => 'Job Scraper',
+				'capability' => 'manage_options',
+				'menu_slug' => 'wp-job-scraper',
+				'callback' => function () {
+					echo '<h1>Hello from alecadddd</h1>';
+				},
+				'icon_url' => 'dashicons-',
+				'position' => 110
+			]
+		];
+
+
+
+
+		$this->settings->add_pages($pages)->register();
 	}
 
 

@@ -41,6 +41,11 @@ class Wp_Job_Scraper_Admin
 	 */
 	private $version;
 
+
+
+
+
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
