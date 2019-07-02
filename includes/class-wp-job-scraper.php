@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://wajihtagourty.ml/
- * @since      1.0.0
+ * @since       0.1.0
  *
  * @package    Wp_Job_Scraper
  * @subpackage Wp_Job_Scraper/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since       0.1.0
  * @package    Wp_Job_Scraper
  * @subpackage Wp_Job_Scraper/includes
  * @author     Wajih Tagourty <Wajih.tagourty@gmail.com>
@@ -34,7 +34,7 @@ class Wp_Job_Scraper
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   protected
 	 * @var      Wp_Job_Scraper_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -43,7 +43,7 @@ class Wp_Job_Scraper
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -52,7 +52,7 @@ class Wp_Job_Scraper
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -65,7 +65,7 @@ class Wp_Job_Scraper
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 */
 	public function __construct()
 	{
@@ -95,7 +95,7 @@ class Wp_Job_Scraper
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   private
 	 */
 	private function load_dependencies()
@@ -130,7 +130,7 @@ class Wp_Job_Scraper
 	 * Uses the Wp_Job_Scraper_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   private
 	 */
 	private function set_locale()
@@ -145,7 +145,7 @@ class Wp_Job_Scraper
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 * @access   private
 	 */
 	private function define_admin_hooks()
@@ -155,13 +155,15 @@ class Wp_Job_Scraper
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
+		$this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_pages');
 	}
 
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since     0.1.0
 	 */
 	public function run()
 	{
@@ -172,7 +174,7 @@ class Wp_Job_Scraper
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since      0.1.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name()
@@ -183,7 +185,7 @@ class Wp_Job_Scraper
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since      0.1.0
 	 * @return    Wp_Job_Scraper_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
@@ -194,7 +196,7 @@ class Wp_Job_Scraper
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since      0.1.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version()

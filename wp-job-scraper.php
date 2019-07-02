@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://wajihtagourty.ml/
- * @since             1.0.0
+ * @since             0.1.0
  * @package           Wp_Job_Scraper
  *
  * @wordpress-plugin
@@ -32,7 +32,7 @@ if (!defined('WPINC')) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
+ * Start at version 0.1.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
 define('WP_JOB_SCRAPER_VERSION', '0.1.1');
@@ -83,7 +83,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-wp-job-scraper.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.1.0
  */
 function run_wp_job_scraper()
 {
