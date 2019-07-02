@@ -72,14 +72,14 @@ class Wp_Job_Scraper
 		if (defined('WP_JOB_SCRAPER_VERSION')) {
 			$this->version = WP_JOB_SCRAPER_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.1.0';
 		}
 		$this->plugin_name = 'wp-job-scraper';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		//$this->define_public_hooks();
 	}
 
 	/**
@@ -157,21 +157,6 @@ class Wp_Job_Scraper
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 	}
 
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks()
-	{
-
-		$plugin_public = new Wp_Job_Scraper_Public($this->get_plugin_name(), $this->get_version());
-
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-	}
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

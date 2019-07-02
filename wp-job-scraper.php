@@ -42,7 +42,7 @@ define('WP_JOB_SCRAPER_PATH', plugin_dir_path(__FILE__));
 
 require WP_JOB_SCRAPER_PATH . '/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/kikinass/wp-job-scraper',
+	'https://github.com/kikinass/wp-job-scraper/',
 	__FILE__,
 	'wp-job-scraper'
 );
