@@ -78,6 +78,14 @@ class Wp_Job_Scraper_Admin
 		echo $content;
 	}
 
+
+	public function settings_link($links)
+	{
+		$settings_link = '<a href="options-general.php?page=wp-job-scraper">Dashboard</a>';
+		array_push($links, $settings_link);
+		return $links;
+	}
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
