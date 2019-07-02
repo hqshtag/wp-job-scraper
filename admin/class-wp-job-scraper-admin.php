@@ -63,6 +63,16 @@ class Wp_Job_Scraper_Admin
 
 
 	/**
+	 * Admin subpages.
+	 *
+	 * @since     0.2.8
+	 * @access   public
+	 * @var      array    $pages    Stores admin subpages.
+	 */
+	public $custom_fields;
+
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since     0.1.0
@@ -96,6 +106,65 @@ class Wp_Job_Scraper_Admin
 				'callback' => array($this, 'admin_settings'),
 			)
 		);
+
+		$this->custom_fields = array(
+			"settings" => array(
+				array(
+					'option_group' => 'wp-job-scraper-options-group',
+					'option_name' => 'text_example',
+					'callback' => array($this, 'my_option_group')
+				)
+			),
+			"sections" => array(
+				array(
+					'id' => 'wp-job-scraper-settings',
+					'title' => 'API Settings',
+					'callback' => array($this, 'my_section_callback'),
+					'page' => 'wp-job-scraper'
+				)
+			),
+			"fields" => array(
+				array(
+					'id' => 'text_example',
+					'title' => 'API Settings field',
+					'callback' => array($this, 'my_field_callback'),
+					'page' => 'wp-job-scraper',
+					'section' => 'wp-job-scraper-settings',
+					'args' => array(
+						'label_for' => 'text_example',
+						'class' => 'example-class'
+					)
+				)
+			)
+
+		);
+	}
+
+
+	public function my_section_callback()
+	{
+		echo 'check out this callback funciton';
+	}
+	public function my_field_callback()
+	{
+		$value = esc_attr(get_option('text_example'));
+		echo '<input type ="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="something awesome" >';
+	}
+
+	public function set_settings()
+	{
+		$args = array(
+			'option_group' => 'wp-job-scraper-options-group',
+			'option_name' => 'text_example',
+			'callback' => array($this, 'my_option_group')
+		);
+
+		//$this->settings->setSettings
+	}
+
+	public function my_option_group($input)
+	{
+		return $input;
 	}
 
 

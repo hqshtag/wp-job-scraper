@@ -37,6 +37,26 @@ class Settings_Api
      */
     public $loader;
 
+    /**
+     * Settings.
+     * @since 0.2.8
+     *@var array $settings
+     */
+    public $settings = array();
+    /**
+     * Sections.
+     * @since 0.2.8
+     *@var array $sections
+     */
+    public $sections = array();
+    /**
+     * Fields.
+     * @since 0.2.8
+     *@var array $fields
+     */
+    public $fields = array();
+
+
     public function __construct($loader)
     {
         $this->loader = $loader;
@@ -50,6 +70,9 @@ class Settings_Api
     {
         if (!empty($this->admin_pages)) {
             $this->loader->add_action('admin_menu', $this, 'add_admin_menu');
+        }
+        if (!empty($this->settings)) {
+            $this->loader->add_action('admin_init', $this, 'register_custom_fields');
         }
     }
 
@@ -82,7 +105,7 @@ class Settings_Api
                 'page_title' => $admin_page['page_title'],
                 'menu_title' => ($title) ? $title : $admin_page['menu_title'],
                 'capability' => $admin_page['capability'],
-                'menu_slug' => $admin_page['menu_slug'] . "-$title",
+                'menu_slug' => $admin_page['menu_slug'],
                 'callback' => $admin_page['callback']
             )
         );
@@ -115,6 +138,64 @@ class Settings_Api
                 $page['capability'],
                 $page['menu_slug'],
                 $page['callback']
+            );
+        }
+    }
+
+
+    public function set_custom_fields($custom_fields)
+    {
+        $this->set_settings($custom_fields["settings"])->set_sections($custom_fields["sections"])->set_fields($custom_fields["fields"]);
+        return $this;
+    }
+
+    public function set_settings(array $settings)
+    {
+        $this->settings = $settings;
+        return $this;
+    }
+    public function set_sections(array $sections)
+    {
+        $this->sections = $sections;
+        return $this;
+    }
+    public function set_fields(array $fields)
+    {
+        $this->fields = $fields;
+        return $this;
+    }
+
+    public function register_custom_fields()
+    {
+        //register setting
+        foreach ($this->settings as $setting) {
+            register_setting(
+                $setting["option_group"],
+                $setting["option_name"],
+                (isset($setting["callback"]) ?  $setting["callback"] : '')
+            );
+        }
+
+        //add settings section
+        foreach ($this->sections as $section) {
+            add_settings_section(
+                $section['id'],
+                $section['title'],
+                (isset($section["callback"]) ?  $section["callback"] : ''),
+                $section['page']
+            );
+        }
+
+        //add settings field
+        foreach ($this->fields as $field) {
+            add_settings_field(
+                $field['id'],
+                $field['title'],
+                (isset($field["callback"]) ?  $field["callback"] : ''),
+                $field["page"],
+                $field["section"],
+                (isset($field["args"]) ?
+                    $field["args"] : '')
             );
         }
     }
