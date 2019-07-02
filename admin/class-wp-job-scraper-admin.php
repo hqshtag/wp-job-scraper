@@ -72,7 +72,7 @@ class Wp_Job_Scraper_Admin
 	public function admin_dashboard()
 	{
 		ob_start();
-		include(WP_JOB_SCRAPER_PATH . 'admin\partials\usajobs-scraper-admin-index.php');
+		include('./admin/partials/usajobs-scraper-admin-index.php');
 		$content = ob_get_contents();
 		ob_get_clean();
 		echo $content;
