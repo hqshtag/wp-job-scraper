@@ -73,7 +73,7 @@ class Wp_Job_Scraper_Admin
 
 	public function admin_dashboard()
 	{
-		echo "<h1>hi</h1>";
+		echo "<h1>hello</h1>";
 	}
 
 	/**
