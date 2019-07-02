@@ -14,4 +14,4 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<h1>hello</h1>
+<h1>Settings</h1>

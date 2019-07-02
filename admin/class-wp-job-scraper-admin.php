@@ -80,9 +80,7 @@ class Wp_Job_Scraper_Admin
 				'menu_title' => 'Job Scraper',
 				'capability' => 'manage_options',
 				'menu_slug' => 'wp-job-scraper',
-				'callback' => function () {
-					echo '<h1>Hello from alecadddd</h1>';
-				},
+				'callback' => array($this, 'admin_dashboard'),
 				'icon_url' => 'dashicons-portfolio',
 				'position' => 110
 			)
@@ -95,36 +93,29 @@ class Wp_Job_Scraper_Admin
 				'menu_title' => 'Settings',
 				'capability' => 'manage_options',
 				'menu_slug' => 'wp-job-scraper-settings',
-				'callback' => function () {
-					echo '<h1>this the settings subpage</h1>';
-				},
+				'callback' => array($this, 'admin_settings'),
 			)
 		);
 	}
 
 
-	public function add_admin_pages()
-	{
-		add_menu_page(
-			'WP Job Scraper',
-			'Job Scraper',
-			'manage_options',
-			'wp-job-scraper',
-			array($this, 'admin_dashboard'),
-			'dashicons-portfolio',
-			110
-		);
-	}
-
 	public function admin_dashboard()
 	{
 		ob_start();
-		include(WP_JOB_SCRAPER_PATH . 'admin/partials/wp-job-scraper-admin-index.php');
+		include(WP_JOB_SCRAPER_PATH . 'admin/partials/wp-job-scraper-admin-dashboard.php');
 		$content = ob_get_contents();
 		ob_get_clean();
 		echo $content;
 	}
 
+	public function admin_settings()
+	{
+		ob_start();
+		include(WP_JOB_SCRAPER_PATH . 'admin/partials/wp-job-scraper-admin-settings.php');
+		$content = ob_get_contents();
+		ob_get_clean();
+		echo $content;
+	}
 
 
 	/**
@@ -134,19 +125,6 @@ class Wp_Job_Scraper_Admin
 	 */
 	public function enqueue_styles()
 	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Job_Scraper_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wp_Job_Scraper_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/wp-job-scraper-admin.css', array(), $this->version, 'all');
 	}
 
@@ -157,19 +135,6 @@ class Wp_Job_Scraper_Admin
 	 */
 	public function enqueue_scripts()
 	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Job_Scraper_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wp_Job_Scraper_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wp-job-scraper-admin.js', array('jquery'), $this->version, false);
 	}
 }

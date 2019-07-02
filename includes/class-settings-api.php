@@ -80,9 +80,9 @@ class Settings_Api
             array(
                 'parent_slug' => $admin_page['menu_slug'],
                 'page_title' => $admin_page['page_title'],
-                'menu_title' => $title,
+                'menu_title' => ($title) ? $title : $admin_page['menu_title'],
                 'capability' => $admin_page['capability'],
-                'menu_slug' => $admin_page['menu_slug'],
+                'menu_slug' => $admin_page['menu_slug'] . "-$title",
                 'callback' => $admin_page['callback']
             )
         );
