@@ -67,16 +67,14 @@ class Wp_Job_Scraper_Admin
 			'wp-job-scraper',
 			array($this, 'admin_dashboard'),
 			'dashicons-portfolio',
-			null
+			110
 		);
 	}
 
-	public function register_wp_job_scraper_admin_menu()
-	{ }
-
-
-	public function render_wp_job_scraper_admin_menu()
-	{ }
+	public function admin_dashboard()
+	{
+		echo "<h1>hi</h1>";
+	}
 
 	/**
 	 * Register the stylesheets for the admin area.
