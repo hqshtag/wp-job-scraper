@@ -42,8 +42,14 @@ class Wp_Job_Scraper_Admin
 	private $version;
 
 
-
-
+	/**
+	 * Admin pages.
+	 *
+	 * @since     0.2.3
+	 * @access   public
+	 * @var      array    $pages    Stores admin pages.
+	 */
+	public $pages;
 
 
 	/**
@@ -58,6 +64,19 @@ class Wp_Job_Scraper_Admin
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->pages = [
+			[
+				'page_title' => 'WP Job Scraper',
+				'menu_title' => 'Job Scraper',
+				'capability' => 'manage_options',
+				'menu_slug' => 'wp-job-scraper',
+				'callback' => function () {
+					echo '<h1>Hello from alecadddd</h1>';
+				},
+				'icon_url' => 'dashicons-portfolio',
+				'position' => 110
+			]
+		];
 	}
 
 

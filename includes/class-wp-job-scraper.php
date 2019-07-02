@@ -171,26 +171,8 @@ class Wp_Job_Scraper
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		//$this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_pages');
 
-		$pages = [
-			[
-				'page_title' => 'WP Job Scraper',
-				'menu_title' => 'Job Scraper',
-				'capability' => 'manage_options',
-				'menu_slug' => 'wp-job-scraper',
-				'callback' => function () {
-					echo '<h1>Hello from alecadddd</h1>';
-				},
-				'icon_url' => 'dashicons-',
-				'position' => 110
-			]
-		];
-
-
-
-
-		$this->settings->add_pages($pages)->register();
+		$this->settings->add_pages($plugin_admin->pages)->register();
 	}
 
 
