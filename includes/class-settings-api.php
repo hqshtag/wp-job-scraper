@@ -21,7 +21,7 @@ class Settings_Api
         $this->admin_pages = $pages;
         return $this;
     }
-    private function add_admin_menu()
+    public function add_admin_menu()
     {
         foreach ($this->admin_pages as $page) {
             add_menu_page(
