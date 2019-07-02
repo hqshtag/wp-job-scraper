@@ -94,7 +94,7 @@ class Wp_Job_Scraper_Admin
 				'page_title' => 'Settings',
 				'menu_title' => 'Settings',
 				'capability' => 'manage_options',
-				'menu_slug' => 'wp-job-scraper',
+				'menu_slug' => 'wp-job-scraper-settings',
 				'callback' => function () {
 					echo '<h1>this the settings subpage</h1>';
 				},
