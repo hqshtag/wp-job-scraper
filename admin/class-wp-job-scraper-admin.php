@@ -64,8 +64,8 @@ class Wp_Job_Scraper_Admin
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->pages = [
-			[
+		$this->pages = array(
+			array(
 				'page_title' => 'WP Job Scraper',
 				'menu_title' => 'Job Scraper',
 				'capability' => 'manage_options',
@@ -75,8 +75,8 @@ class Wp_Job_Scraper_Admin
 				},
 				'icon_url' => 'dashicons-portfolio',
 				'position' => 110
-			]
-		];
+			)
+		);
 	}
 
 
