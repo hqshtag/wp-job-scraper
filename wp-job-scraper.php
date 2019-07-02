@@ -46,7 +46,7 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	__FILE__,
 	'wp-job-scraper'
 );
-$myUpdateChecker->setBranch('develop');
+$myUpdateChecker->setBranch('master');
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wp-job-scraper-activator.php
