@@ -79,10 +79,10 @@ class Wp_Job_Scraper_Admin
 	}
 
 
-	public function settings_link($links)
+	public function dashboard_link($links)
 	{
-		$settings_link = '<a href="options-general.php?page=wp-job-scraper">Dashboard</a>';
-		array_push($links, $settings_link);
+		$dashboard_link = '<a href="options-general.php?page=wp-job-scraper">Dashboard</a>';
+		array_push($links, $dashboard_link);
 		return $links;
 	}
 
