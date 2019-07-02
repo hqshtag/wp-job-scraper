@@ -2,18 +2,28 @@
 
 /**
  * @package WP Job Scraper
+ * @since       0.2.1
  */
 
 
 
 class Settings_Api
 {
+
+
+
     public $admin_pages = array();
 
+    public $loader;
+
+    public function __construct($loader)
+    {
+        $this->loader = $loader;
+    }
     public function register()
     {
         if (!empty($this->admin_pages)) {
-            add_action('admin_menu', array($this, 'add_admin_menu'));
+            $this->loader->add_action('admin_menu', array($this, 'add_admin_menu'));
         }
     }
     public function add_pages(array $pages)

@@ -136,8 +136,8 @@ class Wp_Job_Scraper
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-settings-api.php';
 
 
-		$this->settings = new Settings_Api();
 		$this->loader = new Wp_Job_Scraper_Loader();
+		$this->settings = new Settings_Api($this->loader);
 	}
 
 	/**
