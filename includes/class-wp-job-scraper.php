@@ -156,8 +156,6 @@ class Wp_Job_Scraper
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_pages');
-
-		$this->loader->add_filter("plugin_action_links_$this->plugin_name", $plugin_admin, 'dashboard_link');
 	}
 
 

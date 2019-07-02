@@ -79,17 +79,6 @@ class Wp_Job_Scraper_Admin
 	}
 
 
-	public function dashboard_link($links)
-	{
-
-		$url = 'admin.php?page=wp-job-scraper';
-
-		$_link = '<a href="' . $url . '" target="_blank">' . __('Demo', 'domain') . '</a>';
-
-		$links[] = $_link;
-
-		return $links;
-	}
 
 	/**
 	 * Register the stylesheets for the admin area.
