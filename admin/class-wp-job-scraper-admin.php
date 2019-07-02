@@ -53,6 +53,16 @@ class Wp_Job_Scraper_Admin
 
 
 	/**
+	 * Admin subpages.
+	 *
+	 * @since     0.2.5
+	 * @access   public
+	 * @var      array    $pages    Stores admin subpages.
+	 */
+	public $subpages;
+
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since     0.1.0
@@ -75,6 +85,19 @@ class Wp_Job_Scraper_Admin
 				},
 				'icon_url' => 'dashicons-portfolio',
 				'position' => 110
+			)
+		);
+
+		$this->subpages = array(
+			array(
+				'parent_slug' => 'wp-job-scraper',
+				'page_title' => 'Settings',
+				'menu_title' => 'Settings',
+				'capability' => 'manage_options',
+				'menu_slug' => 'wp-job-scraper',
+				'callback' => function () {
+					echo '<h1>this the settings subpage</h1>';
+				},
 			)
 		);
 	}
