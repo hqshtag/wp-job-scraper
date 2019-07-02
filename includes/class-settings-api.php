@@ -27,7 +27,7 @@ class Settings_Api
             add_menu_page(
                 $page['page_title'],
                 $page['menu_title'],
-                $page['cappability'],
+                $page['capability'],
                 $page['menu_slug'],
                 $page['callback'],
                 $page['icon_url'],
