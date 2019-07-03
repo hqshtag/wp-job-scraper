@@ -164,7 +164,7 @@ class Wp_Job_Scraper_Admin
 		);
 		register_setting(
 			'wp-job-scraper-settings',
-			'wp-job-scraper-toggels'
+			'wp-job-scrapper-apis-usajobs'
 		);
 	}
 
