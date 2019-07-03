@@ -118,18 +118,22 @@ class Wp_Job_Scraper_Admin
 			"sections" => array(
 				array(
 					'id' => 'wp-job-scraper-toggels',
-					'title' => 'APIs Settings',
-					'callback' => false,
+					'title' => 'APIs Manager',
+					'callback' => array($this, 'toggles_intro'),
 					'page' => 'wp-job-scraper-settings'
 				)
 			),
 			"fields" => array(
 				array(
 					'id' => 'wp-job-scrapper-apis-usajobs',
-					'title' => 'USAJobs',
-					'callback' => array($this, 'my_cake'),
+					'title' => 'USAJOBS',
+					'callback' => array($this, 'checkbox_field'),
 					'page' => 'wp-job-scraper-settings',
 					'section' => 'wp-job-scraper-toggels',
+					'args' => array(
+						'label_for' => 'wp-job-scrapper-apis-usajobs',
+						'class' => 'wjs-ui-toggle'
+					)
 				)
 			)
 
@@ -143,17 +147,25 @@ class Wp_Job_Scraper_Admin
 	}
 
 
-
-	/**
-	 * make checkbox --> 
-	 */
-
-	public function my_cake()
+	public function toggles_intro()
 	{
-		$value = esc_attr(get_option('wp-job-scrapper-apis-usajobs'));
-		echo '<input type ="text" name="wp-job-scrapper-apis-usajobs" value="' . $value . '" placeholder="something awesome" >';
+		echo 'Manage which APIs to load your jobads from by turning on/off the switches bellow:';
 	}
 
+
+	public function checkbox_field($args)
+	{
+		$checkbox = get_option($args['label_for']);
+		$name = $args['label_for'];
+		$classes = $args['class'];
+		echo '
+		<div class="wjs-ui-toggle-wraper">
+			<input type="checkbox" name="' . $name . '" value="1" class="' . $classes . '"' . ($checkbox ? 'checked' : null) . '>
+			<b class="wjs-ui-b switch"></b>
+  			<b class="wjs-ui-b track"></b>
+		</div>
+			';
+	}
 
 
 	public function admin_dashboard()
