@@ -16,7 +16,7 @@
  * Plugin Name:       Job Scraper
  * Plugin URI:        https://github.com/kikinass/wp-job-scraper
  * Description:       This plugin helps you load job-ads from multiple* APIs. Requires WP Job Manager.
- * Version:           0.2.9
+ * Version:           0.3.0
  * Author:            Wajih Tagourty
  * Author URI:        https://wajihtagourty.ml/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 0.1.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('WP_JOB_SCRAPER_VERSION', '0.2.9');
+define('WP_JOB_SCRAPER_VERSION', '0.3.0');
 
 define('WP_JOB_SCRAPER_PATH', plugin_dir_path(__FILE__));
 

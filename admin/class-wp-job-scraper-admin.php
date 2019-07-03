@@ -110,96 +110,40 @@ class Wp_Job_Scraper_Admin
 		$this->custom_fields = array(
 			"settings" => array(
 				array(
-					'option_group' => 'wp-job-scraper-options-group',
-					'option_name' => 'text_example',
-					'callback' => array($this, 'my_option_group')
+					'option_group' => 'wp-job-scraper-settings',
+					'option_name' => 'wp-job-scrapper-apis-usajobs',
+					//'callback' => array($this, 'my_option_group')
 				)
 			),
 			"sections" => array(
 				array(
-					'id' => 'wp-job-scraper-settings',
-					'title' => 'API Settings',
-					'callback' => array($this, 'my_section_callback'),
-					'page' => 'wp-job-scraper'
+					'id' => 'wp-job-scraper-toggels',
+					'title' => 'APIs Settings',
+					'callback' => false,
+					'page' => 'wp-job-scraper-settings'
 				)
 			),
 			"fields" => array(
 				array(
-					'id' => 'text_example',
-					'title' => 'API Settings field',
-					'callback' => array($this, 'my_field_callback'),
-					'page' => 'wp-job-scraper',
-					'section' => 'wp-job-scraper-settings',
-					'args' => array(
-						'label_for' => 'text_example',
-						'class' => 'example-class'
-					)
+					'id' => 'wp-job-scrapper-apis-usajobs',
+					'title' => 'USAJobs',
+					'callback' => array($this, 'my_cake'),
+					'page' => 'wp-job-scraper-settings',
+					'section' => 'wp-job-scraper-toggels',
 				)
 			)
 
 		);
-
-		add_action('admin_init', array($this, 'setup_sections'));
-		add_action('admin_init', array($this, 'setup_api_fields'));
 	}
 
-	public function setup_sections()
-	{
-		add_settings_section(
-			'wp-job-scraper-toggels',
-			'APIs',
-			false,
-			'wp-job-scraper-settings'
-		);
-	}
 
-	public function setup_api_fields()
-	{
-		add_settings_field(
-			'wp-job-scrapper-apis-usajobs',
-			'USAJobs',
-			array($this, 'my_cake'),
-			'wp-job-scraper-settings',
-			'wp-job-scraper-toggels'
-		);
-		register_setting(
-			'wp-job-scraper-settings',
-			'wp-job-scrapper-apis-usajobs'
-		);
-	}
 
 	public function my_cake()
 	{
 		$value = esc_attr(get_option('wp-job-scrapper-apis-usajobs'));
-		echo '<input type ="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="something awesome" >';
+		echo '<input type ="text" name="wp-job-scrapper-apis-usajobs" value="' . $value . '" placeholder="something awesome" >';
 	}
 
-
-	public function my_section_callback()
-	{
-		echo 'check out this callback funciton';
-	}
-	public function my_field_callback()
-	{
-		$value = esc_attr(get_option('text_example'));
-		echo '<input type ="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="something awesome" >';
-	}
-
-	public function set_settings()
-	{
-		$args = array(
-			'option_group' => 'wp-job-scraper-options-group',
-			'option_name' => 'text_example',
-			'callback' => array($this, 'my_option_group')
-		);
-
-		//$this->settings->setSettings
-	}
-
-	public function my_option_group($input)
-	{
-		return $input;
-	}
 
 
 	public function admin_dashboard()
