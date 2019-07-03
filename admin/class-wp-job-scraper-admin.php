@@ -112,7 +112,7 @@ class Wp_Job_Scraper_Admin
 				array(
 					'option_group' => 'wp-job-scraper-settings',
 					'option_name' => 'wp-job-scrapper-apis-usajobs',
-					//'callback' => array($this, 'my_option_group')
+					'callback' => array($this, 'checkbox_sanitize')
 				)
 			),
 			"sections" => array(
@@ -137,6 +137,16 @@ class Wp_Job_Scraper_Admin
 	}
 
 
+	public function checkbox_sanitize($input)
+	{
+		return (isset($input) ? true : false);
+	}
+
+
+
+	/**
+	 * make checkbox --> 
+	 */
 
 	public function my_cake()
 	{
