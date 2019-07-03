@@ -158,13 +158,10 @@ class Wp_Job_Scraper_Admin
 		$checkbox = get_option($args['label_for']);
 		$name = $args['label_for'];
 		$classes = $args['class'];
-		echo '
-		<div class="wjs-ui-toggle-wraper">
-			<input type="checkbox" name="' . $name . '" value="1" class="' . $classes . '"' . ($checkbox ? 'checked' : null) . '>
-			<b class="wjs-ui-b switch"></b>
-  			<b class="wjs-ui-b track"></b>
-		</div>
-			';
+		echo	'<div class="wjs-ui-check">
+					<input type="checkbox" id="' . $name . '" name="' . $name . '" value="1" class="' . $classes . '"' . ($checkbox ? 'checked' : null) . '>
+					<label for="' . $name . '"></label>
+				</div>';
 	}
 
 

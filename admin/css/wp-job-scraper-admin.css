@@ -3,82 +3,104 @@
  * included in this file.
  */
 
-* {
-    margin: 0;
-    padding: 0;
+
+
+:root {
+    font-size: 32px;
+}
+
+.wjs-ui-check {
     position: relative;
+    background: linear-gradient(90deg, #f19af3, #f099b5);
+    line-height: 0;
+    perspective: 400px;
+}
+
+.wjs-ui-check input[type="checkbox"],
+.wjs-ui-check label,
+.wjs-ui-check label::before,
+.wjs-ui-check label::after,
+.wjs-ui-check {
+    appearance: none;
+    display: inline-block;
+    border-radius: 1rem;
+    border: 0;
+    transition: .35s ease-in-out;
     box-sizing: border-box;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-
-.wjs-ui-b {
-    display: block;
-}
-
-.wjs-ui-toggle-wraper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60px;
-    height: 40px;
-    border-radius: 100px;
-    background-color: #ddd;
-    margin: -20px -40px;
-    overflow: hidden;
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, .05);
-}
-
-.wjs-ui-toggle {
-    position: absolute;
-    display: block;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    z-index: 6;
 }
 
-.wjs-ui-toggle:checked~.track {
-    box-shadow: inset 0 0 0 20px #4bd863;
+.wjs-ui-check label {
+    width: 2.2rem;
+    height: 1rem;
+    background: #d7d7d7;
+    overflow: hidden;
 }
 
-.wjs-ui-toggle:checked~.switch {
-    right: 2px;
-    left: 22px;
-    transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
-    transition-property: left, right;
-    transition-delay: .05s, 0s;
-}
-
-.switch {
+.wjs-ui-check input[type="checkbox"] {
     position: absolute;
-    left: 2px;
-    top: 2px;
-    bottom: 2px;
-    right: 22px;
-    background-color: #fff;
-    border-radius: 36px;
     z-index: 1;
-    transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
-    transition-property: left, right;
-    transition-delay: 0s, .05s;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    width: .8rem;
+    height: .8rem;
+    top: .2rem;
+    left: .1rem;
+    background: linear-gradient(45deg, #dedede, #ffffff);
+    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.3);
+    outline: none;
 }
 
-.track {
+.wjs-ui-check input[type="checkbox"]:checked {
+    left: 1.3rem;
+}
+
+.wjs-ui-check input[type="checkbox"]:checked+label {
+    background: transparent;
+}
+
+.wjs-ui-check input[type="checkbox"]:checked:before {
+    content: none !important;
+}
+
+.wjs-ui-check label::before,
+.wjs-ui-check label::after {
+    content: "· ·";
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
-    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .05);
-    border-radius: 40px;
+    overflow: hidden;
+    left: .15rem;
+    top: .5rem;
+    height: 1rem;
+    letter-spacing: -.04rem;
+    color: #9b9b9b;
+    font-family: "Times New Roman", serif;
+    z-index: 2;
+    font-size: .6rem;
+    border-radius: 0;
+    transform-origin: 0 0 -.5rem;
+    backface-visibility: hidden;
+}
+
+.wjs-ui-check label::after {
+    content: "●";
+    top: .65rem;
+    left: .3rem;
+    height: .1rem;
+    width: .35rem;
+    font-size: .2rem;
+    transform-origin: 0 0 -.4rem;
+}
+
+.wjs-ui-check input[type="checkbox"]:checked+label::before,
+.wjs-ui-check input[type="checkbox"]:checked+label::after {
+    left: 1.55rem;
+    top: .4rem;
+    line-height: .1rem;
+    transform: rotateY(360deg);
+}
+
+.wjs-ui-check input[type="checkbox"]:checked+label::after {
+    height: .16rem;
+    top: .55rem;
+    left: 1.6rem;
+    font-size: .6rem;
+    line-height: 0;
 }
