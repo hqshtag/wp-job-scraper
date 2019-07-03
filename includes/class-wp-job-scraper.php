@@ -172,7 +172,7 @@ class Wp_Job_Scraper
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
-		//$this->settings->set_custom_fields($plugin_admin->custom_fields);
+		$this->settings->set_custom_fields($plugin_admin->custom_fields);
 
 		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages)->register();
 	}
