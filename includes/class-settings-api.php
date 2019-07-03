@@ -146,7 +146,6 @@ class Settings_Api
     public function set_custom_fields($custom_fields)
     {
         $this->set_settings($custom_fields["settings"])->set_sections($custom_fields["sections"])->set_fields($custom_fields["fields"]);
-        return $this;
     }
 
     public function set_settings(array $settings)

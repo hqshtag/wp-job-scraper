@@ -138,6 +138,40 @@ class Wp_Job_Scraper_Admin
 			)
 
 		);
+
+		add_action('admin_init', array($this, 'setup_sections'));
+		add_action('admin_init', array($this, 'setup_api_fields'));
+	}
+
+	public function setup_sections()
+	{
+		add_settings_section(
+			'wp-job-scraper-toggels',
+			'APIs',
+			false,
+			'wp-job-scraper-settings'
+		);
+	}
+
+	public function setup_api_fields()
+	{
+		add_settings_field(
+			'wp-job-scrapper-apis-usajobs',
+			'USAJobs',
+			array($this, 'my_cake'),
+			'wp-job-scraper-settings',
+			'wp-job-scraper-toggels'
+		);
+		register_setting(
+			'wp-job-scraper-settings',
+			'wp-job-scraper-toggels'
+		);
+	}
+
+	public function my_cake()
+	{
+		$value = esc_attr(get_option('wp-job-scrapper-apis-usajobs'));
+		echo '<input type ="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="something awesome" >';
 	}
 
 
