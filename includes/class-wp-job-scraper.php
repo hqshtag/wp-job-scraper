@@ -191,7 +191,7 @@ class Wp_Job_Scraper
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
-		var_dump($this->controllers);
+		//var_dump($this->controllers);
 		$this->settings->set_custom_fields($plugin_admin->custom_fields);
 		foreach ($this->controllers as $controller) {
 			$this->settings->set_custom_fields($controller->custom_fields);
