@@ -100,7 +100,6 @@ class Wp_Job_Scraper
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->load();
 	}
 
 	/**
@@ -187,14 +186,16 @@ class Wp_Job_Scraper
 	{
 
 		$plugin_admin = new Wp_Job_Scraper_Admin($this->get_plugin_name(), $this->get_version());
-		$usajobs = new Usajobs_Controller();
+		//$usajobs = new Usajobs_Controller();
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
 		var_dump($this->controllers);
 		$this->settings->set_custom_fields($plugin_admin->custom_fields);
-		$this->settings->set_custom_fields($usajobs->custom_fields);
+		foreach ($this->controllers as $controller) {
+			$this->settings->set_custom_fields($controller->custom_fields);
+		}
 
 		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages)->register();
 	}
