@@ -73,6 +73,15 @@ class Wp_Job_Scraper_Admin
 
 
 	/**
+	 * Available APIs
+	 * 
+	 * @since 0.3.1
+	 * @access public
+	 * @var array $apis Stores available apis
+	 */
+	public $apis;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since     0.1.0
@@ -108,13 +117,7 @@ class Wp_Job_Scraper_Admin
 		);
 
 		$this->custom_fields = array(
-			"settings" => array(
-				array(
-					'option_group' => 'wp-job-scraper-settings',
-					'option_name' => 'wp-job-scrapper-apis-usajobs',
-					'callback' => array($this, 'checkbox_sanitize')
-				)
-			),
+
 			"sections" => array(
 				array(
 					'id' => 'wp-job-scraper-toggels',
@@ -123,21 +126,16 @@ class Wp_Job_Scraper_Admin
 					'page' => 'wp-job-scraper-settings'
 				)
 			),
-			"fields" => array(
-				array(
-					'id' => 'wp-job-scrapper-apis-usajobs',
-					'title' => 'USAJOBS',
-					'callback' => array($this, 'checkbox_field'),
-					'page' => 'wp-job-scraper-settings',
-					'section' => 'wp-job-scraper-toggels',
-					'args' => array(
-						'label_for' => 'wp-job-scrapper-apis-usajobs',
-						'class' => 'wjs-ui-toggle'
-					)
-				)
-			)
+			"settings" => array(),
+			"fields" => array()
 
 		);
+
+
+		$this->apis = array(
+			"USAJOBS"
+		);
+		$this->register_apis($this->apis);
 	}
 
 
@@ -202,5 +200,38 @@ class Wp_Job_Scraper_Admin
 	public function enqueue_scripts()
 	{
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wp-job-scraper-admin.js', array('jquery'), $this->version, false);
+	}
+
+	/**
+	 * Generate API fields 
+	 * @since 0.3.1
+	 * @param array $apis  List of APIS
+	 * 
+	 */
+
+	public function register_apis($apis)
+	{
+		foreach ($apis as $api) {
+			$title = $api;
+			$slug = strtolower(str_replace(' ', '-', $api));
+			$api_settings = array(
+				'option_group' => 'wp-job-scraper-settings',
+				'option_name' => "wp-job-scrapper-apis-$slug",
+				'callback' => array($this, 'checkbox_sanitize')
+			);
+			$api_fields = array(
+				'id' => "wp-job-scrapper-apis-$slug",
+				'title' => $title,
+				'callback' => array($this, 'checkbox_field'),
+				'page' => 'wp-job-scraper-settings',
+				'section' => 'wp-job-scraper-toggels',
+				'args' => array(
+					'label_for' => "wp-job-scrapper-apis-$slug",
+					'class' => 'wjs-ui-toggle'
+				)
+			);
+			array_push($this->custom_fields["settings"], $api_settings);
+			array_push($this->custom_fields["fields"], $api_fields);
+		}
 	}
 }
