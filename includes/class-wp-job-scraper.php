@@ -77,6 +77,10 @@ class Wp_Job_Scraper
 	 */
 	public $controllers;
 
+
+
+	public $jobTyps = array();
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -91,10 +95,12 @@ class Wp_Job_Scraper
 		if (defined('WP_JOB_SCRAPER_VERSION')) {
 			$this->version = WP_JOB_SCRAPER_VERSION;
 		} else {
-			$this->version = '0.2.0';
+			$this->version = '0.3.3';
 		}
 		$this->plugin_name = 'wp-job-scraper';
 		$this->controllers = array();
+
+
 
 
 		$this->load_dependencies();
@@ -138,24 +144,35 @@ class Wp_Job_Scraper
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-wp-job-scraper-admin.php';
 
 
+
+		//require_once plugin_dir_path(dirname(__FILE__)) . 'includes/wjs-controller.php';
+
+
 		/**
 		 * a wraper over the Settings API
 		 */
 
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-settings-api.php';
 
-		$options = get_option('wp-job-scraper-settings');
-		foreach ($options as $key => $value) {
-			if ($value) {
-				require_once plugin_dir_path(dirname(__FILE__)) . "includes/wjs-$key.php";
-				$controller_name = ucfirst($key) . '_Controller';
-				$controller = new $controller_name();
-				array_push($this->controllers, $controller);
-			}
-		}
+
 
 		$this->loader = new Wp_Job_Scraper_Loader();
 		$this->settings = new Settings_Api($this->loader);
+		//var_dump(wp_remote_get(site_url('/wp-json/wp/v2/job-types')));
+
+
+		if (get_option('wp-job-scraper-settings')) {
+			$options = get_option('wp-job-scraper-settings');
+			//var_dump($options);
+			foreach ($options as $key => $value) {
+				if ($value) {
+					require_once plugin_dir_path(dirname(__FILE__)) . "includes/wjs-$key.php";
+					$controller_name = ucfirst($key) . '_Controller';
+					$controller = new $controller_name($this->loader);
+					array_push($this->controllers, $controller);
+				}
+			}
+		}
 	}
 
 	/**
@@ -186,29 +203,21 @@ class Wp_Job_Scraper
 	{
 
 		$plugin_admin = new Wp_Job_Scraper_Admin($this->get_plugin_name(), $this->get_version());
-		//$usajobs = new Usajobs_Controller();
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
-		//var_dump($this->controllers);
-		$this->settings->set_custom_fields($plugin_admin->custom_fields);
 		foreach ($this->controllers as $controller) {
-			$this->settings->set_custom_fields($controller->custom_fields);
+			$res = array_merge_recursive($controller->custom_fields, $plugin_admin->custom_fields);
+		}
+		if (empty($this->controllers)) {
+			$res = $plugin_admin->custom_fields;
 		}
 
+		$this->settings->set_custom_fields($res);
 		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages)->register();
 	}
 
-	public function generate_ui()
-	{
-		$options = get_options('wp-job-scraper-settings');
-		if (is_array($options)) {
-			foreach ($options as $option => $value) {
-				# code...
-			}
-		}
-	}
 
 
 	/**
@@ -218,6 +227,7 @@ class Wp_Job_Scraper
 	 */
 	public function run()
 	{
+
 		$this->loader->run();
 	}
 

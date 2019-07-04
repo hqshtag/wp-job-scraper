@@ -104,3 +104,63 @@
     font-size: .6rem;
     line-height: 0;
 }
+
+
+
+
+/* Reset wjs-Select */
+.wjs-select>select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #112E51;
+    background-image: none;
+}
+
+/* Remove IE arrow */
+.wjs-select>select::-ms-expand {
+    display: none;
+}
+
+/* Custom wjs-Select */
+.wjs-select {
+    position: relative;
+    display: flex;
+    width: 14em;
+    height: 2.4em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+}
+
+.wjs-select>select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Arrow */
+.wjs-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 0.7em;
+    background: #CD2026;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+}
+
+/* Transition */
+.wjs-select:hover::after {
+    color: #fff;
+}

@@ -55,4 +55,5 @@ Answer to foo bar dilemma.
 * Code cleanup
 * Database Optimasations
 * Version update
-
+= 0.3.3 =
+* Added USAJOBS manager (33%)
