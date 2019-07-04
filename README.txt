@@ -50,5 +50,9 @@ Answer to foo bar dilemma.
 = 0.3.0 =
 * Modular approach on the WP Settings API 
 * Preformance Optimasation
-
+= 0.3.1 =
+* Added a beautiful API manager.
+* Code cleanup
+* Database Optimasations
+* Version update
 

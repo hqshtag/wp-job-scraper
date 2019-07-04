@@ -31,5 +31,11 @@ class Wp_Job_Scraper_Activator
 	 * @since     0.1.0
 	 */
 	public static function activate()
-	{ }
+	{
+		if (get_option('wp-job-scraper-settings')) {
+			return;
+		}
+		$arr = array();
+		update_option('wp-job-scraper-settings', $arr);
+	}
 }

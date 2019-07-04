@@ -148,7 +148,6 @@ class Wp_Job_Scraper_Admin
 	public function checkbox_sanitize($input)
 	{
 		$output = array();
-		//return (isset($input) ? true : false);
 		foreach ($this->apis as $title => $slug) {
 			$output[$slug] =  isset($input[$slug]) ? true : false;
 		}
@@ -172,8 +171,10 @@ class Wp_Job_Scraper_Admin
 
 		$checkbox = get_option($option_name);
 
+		$checked = isset($checkbox[$name]) ? ($checkbox[$name] ? true : false) : false;
+
 		echo	'<div class="wjs-ui-check">
-					<input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="' . $classes . '"' . ($checkbox[$name] ? 'checked' : null) . '>
+					<input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="' . $classes . '"' . ($checked ? 'checked' : null) . '>
 					<label for="' . $name . '"></label>
 				</div>';
 	}
