@@ -237,7 +237,7 @@ class Wp_Job_Scraper_Admin
 	 * @param array $apis 
 	 */
 
-	public function registe_subpages($apis)
+	public function register_subpages($apis)
 	{
 		$options = get_option("wp-job-scraper-settings");
 		foreach ($apis as $title => $slug) {
