@@ -126,14 +126,20 @@ class Wp_Job_Scraper_Admin
 					'page' => 'wp-job-scraper-settings'
 				)
 			),
-			"settings" => array(),
+			"settings" => array(
+				array(
+					'option_group' => 'wp-job-scraper-settings',
+					'option_name' => 'wp-job-scraper-settings',
+					'callback' => array($this, 'checkbox_sanitize')
+				)
+			),
 			"fields" => array()
 
 		);
 
-
+		//title => slug
 		$this->apis = array(
-			"USAJOBS"
+			"USAJOBS" => "usajobs"
 		);
 		$this->register_apis($this->apis);
 	}
@@ -141,7 +147,12 @@ class Wp_Job_Scraper_Admin
 
 	public function checkbox_sanitize($input)
 	{
-		return (isset($input) ? true : false);
+		$output = array();
+		//return (isset($input) ? true : false);
+		foreach ($this->apis as $title => $slug) {
+			$output[$slug] =  isset($input[$slug]) ? true : false;
+		}
+		return $output;
 	}
 
 
@@ -153,11 +164,16 @@ class Wp_Job_Scraper_Admin
 
 	public function checkbox_field($args)
 	{
-		$checkbox = get_option($args['label_for']);
+
+		$option_name = $args['option_name'];
 		$name = $args['label_for'];
 		$classes = $args['class'];
+
+
+		$checkbox = get_option($option_name);
+
 		echo	'<div class="wjs-ui-check">
-					<input type="checkbox" id="' . $name . '" name="' . $name . '" value="1" class="' . $classes . '"' . ($checkbox ? 'checked' : null) . '>
+					<input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="' . $classes . '"' . ($checkbox[$name] ? 'checked' : null) . '>
 					<label for="' . $name . '"></label>
 				</div>';
 	}
@@ -211,26 +227,20 @@ class Wp_Job_Scraper_Admin
 
 	public function register_apis($apis)
 	{
-		foreach ($apis as $api) {
-			$title = $api;
-			$slug = strtolower(str_replace(' ', '-', $api));
-			$api_settings = array(
-				'option_group' => 'wp-job-scraper-settings',
-				'option_name' => "wp-job-scrapper-apis-$slug",
-				'callback' => array($this, 'checkbox_sanitize')
-			);
+		foreach ($apis as $title => $slug) {
 			$api_fields = array(
-				'id' => "wp-job-scrapper-apis-$slug",
+				'id' => $slug,
 				'title' => $title,
 				'callback' => array($this, 'checkbox_field'),
 				'page' => 'wp-job-scraper-settings',
 				'section' => 'wp-job-scraper-toggels',
 				'args' => array(
-					'label_for' => "wp-job-scrapper-apis-$slug",
+					'option_name' => 'wp-job-scraper-settings',
+					'label_for' => $slug,
 					'class' => 'wjs-ui-toggle'
+
 				)
 			);
-			array_push($this->custom_fields["settings"], $api_settings);
 			array_push($this->custom_fields["fields"], $api_fields);
 		}
 	}
