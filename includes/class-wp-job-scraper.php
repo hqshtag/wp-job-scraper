@@ -69,6 +69,15 @@ class Wp_Job_Scraper
 	public $settings;
 
 	/**
+	 * Stores the controllers
+	 * 
+	 * @since 0.3.2
+	 * @access public
+	 * @var Controller $controllers
+	 */
+	public $controllers;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -85,12 +94,13 @@ class Wp_Job_Scraper
 			$this->version = '0.2.0';
 		}
 		$this->plugin_name = 'wp-job-scraper';
-
+		$this->controllers = array();
 
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->load();
 	}
 
 	/**
@@ -135,6 +145,15 @@ class Wp_Job_Scraper
 
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-settings-api.php';
 
+		$options = get_option('wp-job-scraper-settings');
+		foreach ($options as $key => $value) {
+			if ($value) {
+				require_once plugin_dir_path(dirname(__FILE__)) . "includes/wjs-$key.php";
+				$controller_name = ucfirst($key) . '_Controller';
+				$controller = new $controller_name();
+				array_push($this->controllers, $controller);
+			}
+		}
 
 		$this->loader = new Wp_Job_Scraper_Loader();
 		$this->settings = new Settings_Api($this->loader);
@@ -168,13 +187,26 @@ class Wp_Job_Scraper
 	{
 
 		$plugin_admin = new Wp_Job_Scraper_Admin($this->get_plugin_name(), $this->get_version());
+		$usajobs = new Usajobs_Controller();
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
+		var_dump($this->controllers);
 		$this->settings->set_custom_fields($plugin_admin->custom_fields);
+		$this->settings->set_custom_fields($usajobs->custom_fields);
 
 		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages)->register();
+	}
+
+	public function generate_ui()
+	{
+		$options = get_options('wp-job-scraper-settings');
+		if (is_array($options)) {
+			foreach ($options as $option => $value) {
+				# code...
+			}
+		}
 	}
 
 
