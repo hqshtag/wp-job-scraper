@@ -142,6 +142,7 @@ class Wp_Job_Scraper_Admin
 			"USAJOBS" => "usajobs"
 		);
 		$this->register_apis($this->apis);
+		$this->register_subpages($this->apis);
 	}
 
 
@@ -198,6 +199,15 @@ class Wp_Job_Scraper_Admin
 		echo $content;
 	}
 
+	public function admin_usajobs()
+	{
+		ob_start();
+		include(WP_JOB_SCRAPER_PATH . 'admin/partials/wp-job-scraper-admin-usajobs.php');
+		$content = ob_get_contents();
+		ob_get_clean();
+		echo $content;
+	}
+
 
 	/**
 	 * Register the stylesheets for the admin area.
@@ -217,6 +227,32 @@ class Wp_Job_Scraper_Admin
 	public function enqueue_scripts()
 	{
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wp-job-scraper-admin.js', array('jquery'), $this->version, false);
+	}
+
+
+
+	/**
+	 * Register subpages depending on settings
+	 * @since 0.3.2
+	 * @param array $apis 
+	 */
+
+	public function registe_subpages($apis)
+	{
+		$options = get_option("wp-job-scraper-settings");
+		foreach ($apis as $title => $slug) {
+			if ($options[$slug]) {
+				$subpage = array(
+					'parent_slug' => 'wp-job-scraper',
+					'page_title' => $title,
+					'menu_title' => "$title Manager",
+					'capability' => 'manage_options',
+					'menu_slug' => "wp-job-scraper-$slug",
+					'callback' => array($this, "admin_$slug"),
+				);
+				array_push($this->subpages, $subpage);
+			}
+		}
 	}
 
 	/**
