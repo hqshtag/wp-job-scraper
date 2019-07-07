@@ -164,11 +164,11 @@ class Wp_Job_Scraper
 		if (get_option('wp-job-scraper-settings')) {
 			$options = get_option('wp-job-scraper-settings');
 			//var_dump($options);
-			foreach ($options as $key => $value) {
+			foreach ($options as $controller => $value) {
 				if ($value) {
-					require_once plugin_dir_path(dirname(__FILE__)) . "includes/wjs-$key.php";
-					$controller_name = ucfirst($key) . '_Controller';
-					$controller = new $controller_name($this->loader);
+					require_once plugin_dir_path(dirname(__FILE__)) . "includes/wjs-$controller.php";
+					$controller = ucfirst($controller) . '_Controller';
+					$controller = new $controller($controller);
 					array_push($this->controllers, $controller);
 				}
 			}
@@ -208,14 +208,21 @@ class Wp_Job_Scraper
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
 		foreach ($this->controllers as $controller) {
-			$res = array_merge_recursive($controller->custom_fields, $plugin_admin->custom_fields);
+			$fields = array_merge_recursive($controller->custom_fields, $plugin_admin->custom_fields);
+			foreach ($controller->actions as $action => $callback) {
+				$this->loader->add_action($action, $controller, $callback, 1);
+			}
 		}
 		if (empty($this->controllers)) {
-			$res = $plugin_admin->custom_fields;
+			$fields = $plugin_admin->custom_fields;
 		}
 
-		$this->settings->set_custom_fields($res);
-		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages)->register();
+
+		$this->settings->set_custom_fields($fields);
+		$this->settings->add_pages($plugin_admin->pages)->with_subpage('Dashboard')->add_subpages($plugin_admin->subpages);
+
+
+		$this->settings->register();
 	}
 
 

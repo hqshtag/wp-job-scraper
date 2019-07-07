@@ -17,6 +17,8 @@
 
 
 <div class="wrap">
+    <?php settings_errors() ?>
+
     <h1>Settings</h1>
     <form method="POST" action="options.php">
         <?php

@@ -9,6 +9,28 @@
     font-size: 32px;
 }
 
+.wjs-usajobs-title {
+    font-weight: bolder;
+    letter-spacing: 0.4px;
+    font-size: 32px;
+    color: rgb(139, 3, 7);
+}
+
+.wjs-usajobs-auth input {
+    width: 380px;
+    height: 36px;
+}
+
+
+
+
+
+
+
+/******
+******  Custom check boxes
+*****
+*****/
 .wjs-ui-check {
     position: relative;
     background: linear-gradient(90deg, #f19af3, #f099b5);
@@ -107,7 +129,10 @@
 
 
 
-
+/******
+******  Custom Select
+*****
+*****/
 /* Reset wjs-Select */
 .wjs-select>select {
     -webkit-appearance: none;
@@ -163,4 +188,57 @@
 /* Transition */
 .wjs-select:hover::after {
     color: #fff;
+}
+
+
+
+/**
+*-* TAbs
+*/
+.tab-container {
+    margin-top: 40px;
+
+    width: 80%;
+    /* margin: 0 auto;*/
+}
+
+
+
+ul.tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.tabs li {
+    font-size: 24px;
+    background: none;
+    color: #272a2f;
+    display: inline-block;
+    padding: 18px 24px;
+    cursor: pointer;
+}
+
+ul.tabs li.current {
+    background: #97c8df;
+    color: #ffffff;
+}
+
+.tab-content {
+    display: none;
+    background: #97c8df;
+    padding: 15px;
+}
+
+.tab-content.current {
+    display: inherit;
+}
+
+
+/**
+myemail
+**/
+.wjs-myemail {
+    font-size: 18px;
+    color: rgb(57, 0, 90);
 }

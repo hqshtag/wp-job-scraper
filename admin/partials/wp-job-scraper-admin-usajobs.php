@@ -16,7 +16,9 @@
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <div class="wrap">
-    <h1>USAJOBS Api Manager</h1>
+    <?php settings_errors() ?>
+
+    <h1><span class="wjs-usajobs-title">USAJOBS</span> API Manager</h1>
 
     <form method="POST" action="options.php">
         <?php
