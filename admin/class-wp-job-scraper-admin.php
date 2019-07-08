@@ -241,18 +241,20 @@ class Wp_Job_Scraper_Admin
 
 	public function register_subpages($apis)
 	{
-		$options = get_option("wp-job-scraper-settings");
-		foreach ($apis as $title => $slug) {
-			if ($options[$slug]) {
-				$subpage = array(
-					'parent_slug' => 'wp-job-scraper',
-					'page_title' => $title,
-					'menu_title' => "$title Manager",
-					'capability' => 'manage_options',
-					'menu_slug' => "wp-job-scraper-$slug",
-					'callback' => array($this, "admin_$slug"),
-				);
-				array_push($this->subpages, $subpage);
+		if (get_option("wp-job-scraper-settings")) {
+			$options = get_option("wp-job-scraper-settings");
+			foreach ($apis as $title => $slug) {
+				if ($options[$slug]) {
+					$subpage = array(
+						'parent_slug' => 'wp-job-scraper',
+						'page_title' => $title,
+						'menu_title' => "$title Manager",
+						'capability' => 'manage_options',
+						'menu_slug' => "wp-job-scraper-$slug",
+						'callback' => array($this, "admin_$slug"),
+					);
+					array_push($this->subpages, $subpage);
+				}
 			}
 		}
 	}
