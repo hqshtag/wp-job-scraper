@@ -39,21 +39,26 @@ Answer to foo bar dilemma.
 
 == Changelog ==
 
-= 0.1.0 =
-* Initializing the plugin.
-* Boiler Plater from wppb.me by ENRIQUE CHÁVEZ.
-= 0.1.1 =
-* Added plugin updater  by Yahnis Elsts.
-= 0.2.0 =
-* Bug Fixes 
-* Code Cleaning and Optimasations
+
+
+
+= 0.4.0 =
+* Added Dashboard UI.
+* First stable version
+
 = 0.3.0 =
 * Modular approach on the WP Settings API 
 * Preformance Optimasation
-= 0.3.1 =
-* Added a beautiful API manager.
+* Added USAJOBS manager (33%)
+* Added  API manager.
 * Code cleanup
 * Database Optimasations
-* Version update
-= 0.3.3 =
-* Added USAJOBS manager (33%)
+
+= 0.2.0 =
+* Bug Fixes 
+* Code Cleaning and Optimasations
+= 0.1.1 =
+* Added plugin updater  by Yahnis Elsts.
+= 0.1.0 =
+* Initializing the plugin.
+* Boiler Plater from wppb.me by ENRIQUE CHÁVEZ.
