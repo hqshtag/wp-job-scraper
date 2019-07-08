@@ -22,11 +22,16 @@
             <li class="tab-link" data-tab="tab-2">Info</li>
         </ul>
 
-        <div id="tab-1" class="tab-content current">
+        <div id="tab-1" class="tab-content wjs-dahsboard current">
             <div class="wjs-main">
                 <div class="wjs-timer"></div>
-                <div class="wjs-update-button">button</div>
-                <div class="wjs-loading-bar">laodingbar</div>
+                <div class="wjs-update-button ld-over">
+                    <button id="wjs-update-btn">Update</button>
+                    <div class="ld ld-ring ld-spin"></div>
+
+
+                </div>
+
             </div>
 
             <div class="wjs-stats">stats</div>

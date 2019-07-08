@@ -217,6 +217,8 @@ class Wp_Job_Scraper_Admin
 	public function enqueue_styles()
 	{
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/wp-job-scraper-admin.css', array(), WP_JOB_SCRAPER_VERSION, 'all');
+		wp_enqueue_style($this->plugin_name . 'loading', plugin_dir_url(__FILE__) . 'css/loading.css', array(), WP_JOB_SCRAPER_VERSION, 'all');
+		wp_enqueue_style($this->plugin_name . 'loading-btn', plugin_dir_url(__FILE__) . 'css/loading-btn.css', array(), WP_JOB_SCRAPER_VERSION, 'all');
 	}
 
 	/**

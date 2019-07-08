@@ -90,6 +90,7 @@ class Usajobs_Controller extends Controller
             // 'admin_init' => 'shouldUpdate',
             'admin_init' => 'get_available_job_types',
             'load_core_script' => 'load_script',
+            'wp_ajax_reset_timer' => 'reset_timer',
 
         );
 
@@ -101,53 +102,42 @@ class Usajobs_Controller extends Controller
             $required = $this->fields['auth'];
             if ($this->isSetUp('usajobs', $required)) {
                 $options = get_option("wp-job-scraper-usajobs");
-
-                //var_dump(array_key_exists("timer", $options));
                 if (array_key_exists("timer", $options)) {
                     $this->timer = $options['timer'];
                 } else {
                     $this->timer =  time();
                     $options = array_merge($options, array("timer" => $this->timer));
-                    //var_dump($options);
                     update_option("wp-job-scraper-usajobs", $options);
                 }
-
                 $data = array(
                     'userAuth' => $this->getUserC(),
                     'settings' => array(
-                        'timer' => $this->timer
+                        'timer' => $this->timer,
+                        'nonce' => wp_create_nonce('wp_rest'),
+                        'url' => site_url('/wp-json/wp/v2/job-listings'),
+                        'typeMap' => $this->get_job_type_map(),
+                    ),
+                    'ajax' => array(
+                        'url'      => admin_url('admin-ajax.php'),
+                        'nonce'    => wp_create_nonce('ajax_nonce'),
                     )
                 );
-
-                var_dump($this->shouldUpdate());
-                if ($this->shouldUpdate()) {
-
-
-                    $this->timer =  time();
-                    $options = array_merge($options, array("timer" => $this->timer));
-                    //var_dump($options);
-                    update_option("wp-job-scraper-usajobs", $options);
-                }
-
                 do_action('load_core_script', $data);
             }
         }
     }
 
 
-    public function shouldUpdate()
+    public function reset_timer()
     {
-        $required = $this->fields['auth'];
-        if ($this->isSetUp('usajobs', $required)) {
-            $currentTime = time();
-            $lastUpdateTime = $this->timer;
-
-            $itsBeen = $currentTime - $lastUpdateTime;
-            if ($itsBeen > 86400) { //at least 1 day passed since last update or init;
-                return true;
-            }
+        if (!wp_verify_nonce($_POST['security'], 'ajax_nonce')) {
+            wp_send_json_error(array('message' => 'Nonce is invalid.'));
+        } else {
+            $options = get_option("wp-job-scraper-usajobs");
+            $options = array_merge($options, array("timer" => time()));
+            update_option("wp-job-scraper-usajobs", $options);
+            wp_send_json_success(array('message' => 'Timer reset.'));
         }
-        return false;
     }
 
 
@@ -245,5 +235,25 @@ class Usajobs_Controller extends Controller
             'email' => $this->email,
             'key' => $this->key
         );
+    }
+
+    public function get_job_type_map()
+    {
+        $res = array(
+            '1' => '',
+            '2' => '',
+            '3' => '',
+            '4' => '',
+            '5' => '',
+            '6' => ''
+        );
+        $options = get_option('wp-job-scraper-usajobs');
+        $jobtypes = $this->fields['jobmap'];
+        $index = 1;
+        foreach ($jobtypes as $key => $slug) {
+            $res[$index] = $options[$slug];
+            $index++;
+        }
+        return $res;
     }
 }

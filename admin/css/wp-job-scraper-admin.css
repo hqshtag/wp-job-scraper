@@ -236,6 +236,80 @@ ul.tabs li.current {
 
 
 /**
+dashboard
+
+**/
+.wjs-dahsboard {
+    width: 100%;
+    color: white;
+    background: rgb(139, 200, 216);
+    /* display: grid;*/
+    grid-template-columns: 1.6fr 0.4fr;
+    grid-template-areas: "dashboard stats";
+}
+
+.wjs-stats {
+    display: none;
+    grid-area: stats;
+    padding: 4px;
+    margin: -5px;
+    color: black;
+    background: white;
+}
+
+.wjs-main {
+    grid-area: dashboard;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wjs-timer {
+    align-self: flex-end;
+    background: rgb(118, 66, 150);
+    background: linear-gradient(308deg, rgb(112, 41, 102) 14%, rgb(106, 9, 119) 100%);
+    border-left: 4px solid rgb(253, 253, 253);
+    padding: 10px;
+    margin: 13px;
+    font-size: 16px;
+}
+
+
+
+
+
+#wjs-update-btn {
+    align-self: center;
+    height: 60px;
+    width: 180px;
+    font-family: sans-serif;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1.1px;
+    background-color: #1b8bf9;
+    border: none;
+    border-radius: 2%;
+    transition: 0.6s cubic-bezier(0.01, 1.69, 0.99, 0.94);
+}
+
+#wjs-update-btn:hover {
+    background: cornflowerblue;
+    letter-spacing: 3px;
+}
+
+#wjs-update-btn--clicked {
+    transition: 0.6s cubic-bezier(0.01, 1.69, 0.99, 0.94);
+    padding: 15px 2px;
+    width: 50px;
+    color: transparent;
+    z-index: -10;
+}
+
+
+
+
+
+/**
 myemail
 **/
 .wjs-myemail {
