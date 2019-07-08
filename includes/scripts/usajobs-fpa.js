@@ -254,7 +254,7 @@ const msToDay = (ms) => {
 			//console.log(aff);
 
 			// If the count down is finished enable the button
-			if (distance < 0) {
+			if (distance <= 0) {
 				$('.toplevel_page_wp-job-scraper > .wp-menu-name')
 					.last()
 					.append('      <span class="dashicons dashicons-warning"></span>');
