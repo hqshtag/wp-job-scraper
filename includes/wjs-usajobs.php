@@ -105,9 +105,9 @@ class Usajobs_Controller extends Controller
                 if (array_key_exists("timer", $options)) {
                     $this->timer = $options['timer'];
                 } else {
-                    $this->timer =  time();
-                    $options = array_merge($options, array("timer" => $this->timer));
-                    update_option("wp-job-scraper-usajobs", $options);
+                    $this->timer =  time() - 86402;
+                    // $options = array_merge($options, array("timer" => $this->timer));
+                    //update_option("wp-job-scraper-usajobs", $options);
                 }
                 $data = array(
                     'userAuth' => $this->getUserC(),
@@ -163,7 +163,7 @@ class Usajobs_Controller extends Controller
         } else {
             echo '<div class="wjs-select">';
             echo '<select name="' . $option_name . '[' . $name . ']">';
-            echo '<option value="0" selected>--None--</option>';
+            echo '<option value="" selected>--None--</option>';
             foreach ($this->jobTypes as $type) {
                 $selected = $value == $type["id"] ? 'selected' : '';
                 echo '<option value ="' . $type["id"] . '" ' . $selected . '>' . $type["name"] . '</option>';

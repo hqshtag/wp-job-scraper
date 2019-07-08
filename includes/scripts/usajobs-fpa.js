@@ -61,7 +61,7 @@ class JobLoader {
 		return res;
 	};
 	getUrlWithin = (numberOfDays) => {
-		return [ `https://data.usajobs.gov/api/search?DatePosted=${numberOfDays}&ResultsPerPage=232` ];
+		return [ `https://data.usajobs.gov/api/search?DatePosted=${numberOfDays}&ResultsPerPage=142` ];
 	};
 }
 
@@ -262,10 +262,12 @@ const msToDay = (ms) => {
 				$('.wjs-timer').html('<span id="timer">Update is Ready</span>');
 				clearInterval(x);
 				let daysSinceLastUpdate = msToDay(now - timer * 1000);
-				const loader = new JobLoader(userData.email, userData.key, daysSinceLastUpdate, false);
+				if (daysSinceLastUpdate === 0) daysSinceLastUpdate = 1;
+				const loader = new JobLoader(userData.email, userData.key, daysSinceLastUpdate, true);
 				const parser = new Parser(settings.typeMap);
 				const adder = new JobAdder(settings.url, settings.nonce);
 				$(document).ready(function() {
+					$('#wjs-update-btn').off('click');
 					$('#wjs-update-btn').on('click', function() {
 						$('.wjs-update-button').removeClass('ld-over');
 						$('#wjs-update-btn').html('Downloading..');
