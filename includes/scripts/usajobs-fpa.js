@@ -239,7 +239,7 @@ const msToDay = (ms) => {
 			var now = new Date().getTime();
 
 			// Find the distance between now and the count down date
-			var distance = timer * 1000 + 86400000 - now; //86400000 = 24 hours in ms
+			var distance = timer * 1000 + 60000 - now; //86400000 = 24 hours in ms
 
 			// Time calculations for days, hours, minutes and seconds
 			//var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -261,9 +261,9 @@ const msToDay = (ms) => {
 				$('#timer').addClass('timer-finished');
 				$('.wjs-timer').html('<span id="timer">Update is Ready</span>');
 				clearInterval(x);
-				let daysSinceLastUpdate = msToDay(now - timer * 1000);
-				if (daysSinceLastUpdate === 0) daysSinceLastUpdate = 1;
-				const loader = new JobLoader(userData.email, userData.key, daysSinceLastUpdate, true);
+				//let daysSinceLastUpdate = msToDay(now - timer * 1000);
+				//if (daysSinceLastUpdate === 0) daysSinceLastUpdate = 1;
+				const loader = new JobLoader(userData.email, userData.key, 10, false);
 				const parser = new Parser(settings.typeMap);
 				const adder = new JobAdder(settings.url, settings.nonce);
 				$(document).ready(function() {
